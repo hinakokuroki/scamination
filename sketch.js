@@ -38,7 +38,7 @@ function setup() {
   buttonList = [];
   for (let i = 0; i < 7; i++) {
     let button = createButton(str(i + 1));
-    button.position(width - 30, i * 30 + 10);
+    button.position(width - 50, i * 85 + 10);
     button.mousePressed(() => {
       img = imgList[i];
     });

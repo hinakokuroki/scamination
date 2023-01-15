@@ -7,3 +7,12 @@
 canvas {
   display: block;
 }
+
+button {
+  color: white;
+  border: none;
+  background-color: white;
+  width: 40px;
+  height: 80px;
+  border-radius: 5px;
+}
