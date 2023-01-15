@@ -1,11 +1,11 @@
 function setup() {
-  createCanvas(400, 400);
+  createCanvas(windowWidth, windowHeight);
 }
 
 function draw() {
   background(220);
-  if(mouseIsPressed){
+  if (mouseIsPressed) {
     fill(255);
-    ellipse(mouseX, mouseY, 50,50);
+    ellipse(mouseX, mouseY, 50, 50);
   }
 }
