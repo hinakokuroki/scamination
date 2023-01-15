@@ -3,6 +3,7 @@ let slitY, startY, moveY;
 let drgStart;
 
 let imgWidth, imgHeight;
+let color;
 
 function preload() {
   img1 = loadImage("./image_1.png");
@@ -37,9 +38,6 @@ function setup() {
     imgHeight = height - 10;
     imgWidth = Math.floor((img1.width * imgHeight) / img1.height);
   }
-  background(250);
-  //image(img1, width / 2, height / 2, imgWidth, imgHeight);
-  //image(img1, width / 2, height / 2);
   slitX = width / 2 - 10;
   slitY = height / 2 - 10;
   slitAngle = 0;
@@ -48,16 +46,21 @@ function setup() {
   startX = 0;
   moveX = 0;
   drgStart = false;
+
+  color = img1.get(0, 0);
 }
 
 function draw() {
-  let dragCount = 0;
   background(255);
+  tint(255, 255);
+  fillAround();
   image(img1, width / 2, height / 2, imgWidth, imgHeight);
-  text(windowWidth + "," + windowHeight, 50, 50);
-  //slitY = slitY + moveY;
-  //rect(20, slitY, windowWidth - 40, windowHeight);
   drawSlit(slitX, slitY, slitAngle);
+}
+
+function drawSlit(x, y, angle) {
+  tint(255, 255, 80, 240);
+  image(img1, x, y, imgWidth, imgHeight);
 }
 
 function mousePressed() {
@@ -74,6 +77,21 @@ function mouseReleased() {
   drgStart = false;
 }
 
-function drawSlit(x, y, angle) {
-  image(img1, x, y, imgWidth, imgHeight);
+function fillAround() {
+  fill(color);
+  rect(0, 0, 20, 20);
+  rect(0, 0, (width - imgWidth) / 2 + 4, height);
+  rect(
+    width - (width - imgWidth) / 2 - 4,
+    0,
+    (width - imgWidth) / 2 + 4,
+    height
+  );
+  rect(0, 0, width, (height - imgHeight) / 2 + 4);
+  rect(
+    0,
+    height - (height - imgHeight) / 2 - 4,
+    width,
+    (height - imgHeight) / 2 + 4
+  );
 }
