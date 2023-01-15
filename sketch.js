@@ -4,9 +4,17 @@ let drgStart;
 
 let imgWidth, imgHeight;
 let color;
+let imgList = [];
+let img;
 
 function preload() {
-  img1 = loadImage("./image_1.png");
+  img0 = loadImage("./image_1.png");
+  img1 = loadImage("./image_2.png");
+  img2 = loadImage("./image_3.png");
+  img3 = loadImage("./image_4.png");
+  img4 = loadImage("./image_5.png");
+  img5 = loadImage("./image_6.png");
+  img6 = loadImage("./image_7.png");
 }
 
 function setup() {
@@ -27,6 +35,15 @@ function setup() {
     }
   );
   createCanvas(windowWidth, windowHeight);
+  buttonList = [];
+  for (let i = 0; i < 7; i++) {
+    let button = createButton(str(i + 1));
+    button.position(width - 30, i * 30 + 10);
+    button.mousePressed(() => {
+      img = imgList[i];
+    });
+    buttonList.push(button);
+  }
 
   noStroke();
   imageMode(CENTER);
@@ -38,8 +55,8 @@ function setup() {
     imgHeight = height - 10;
     imgWidth = Math.floor((img1.width * imgHeight) / img1.height);
   }
-  slitX = width / 2 - 10;
-  slitY = height / 2 - 10;
+  slitX = width / 2 - 5;
+  slitY = height / 2 - 4;
   slitAngle = 0;
   startY = 0;
   moveY = 0;
@@ -48,19 +65,23 @@ function setup() {
   drgStart = false;
 
   color = img1.get(0, 0);
+  imgList = [img0, img1, img2, img3, img4, img5, img6];
+  img = imgList[0];
 }
 
 function draw() {
   background(255);
   tint(255, 255);
   fillAround();
-  image(img1, width / 2, height / 2, imgWidth, imgHeight);
+  image(img, width / 2, height / 2, imgWidth, imgHeight);
   drawSlit(slitX, slitY, slitAngle);
+
+  //drawButton(n);
 }
 
 function drawSlit(x, y, angle) {
-  tint(255, 255, 80, 240);
-  image(img1, x, y, imgWidth, imgHeight);
+  tint(255, 255, 200, 240);
+  image(img, x, y, imgWidth, imgHeight);
 }
 
 function mousePressed() {
@@ -69,8 +90,8 @@ function mousePressed() {
 }
 function mouseDragged() {
   if (drgStart) {
-    slitY = slitY + mouseY - pmouseY;
-    slitX = slitX + mouseX - pmouseX;
+    slitY = slitY + (mouseY - pmouseY) / 3;
+    slitX = slitX + (mouseX - pmouseX) / 3;
   }
 }
 function mouseReleased() {
@@ -94,4 +115,8 @@ function fillAround() {
     width,
     (height - imgHeight) / 2 + 4
   );
+}
+
+function changeScene(n) {
+  img = imgList[n];
 }
