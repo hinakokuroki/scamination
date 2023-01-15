@@ -20,7 +20,7 @@ function setup() {
 
 function draw() {
   background(220);
-  color(255, 0, 0);
+  stroke(255, 0, 0);
   text(windowWidth + "," + windowHeight, 50, 50);
   if (mouseIsPressed) {
     fill(255);
