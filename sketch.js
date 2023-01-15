@@ -1,4 +1,4 @@
-let slitY;
+let slitY, startY, moveY;
 
 function setup() {
   window.addEventListener(
@@ -19,27 +19,36 @@ function setup() {
   );
   createCanvas(windowWidth, windowHeight);
   slitY = windowHeight - 40;
+  startY = 0;
+  moveY = 0;
 }
 
 function draw() {
+  let dragCount = 0;
   background(250);
   stroke(100);
   text(windowWidth + "," + windowHeight, 50, 50);
+  //slitY = slitY + moveY;
   rect(20, slitY, windowWidth - 40, windowHeight);
+
   if (mouseIsPressed) {
-    slitY = slitY + calcSlitY();
     fill(255);
     ellipse(mouseX, mouseY, 50, 50);
     text(windowWidth + "," + windowHeight, mouseX, mouseY - 50);
   }
 }
 
-function calcSlitY() {
-  let startY, moveY;
-  if (mouseIsPressed && count == 0) {
-    startY = mouseY;
-  } else if (mouseIsPressed) {
-    moveY = mouseY - startY;
+function mousePressed() {
+  startY = mouseY;
+  if (mouseY >= slitY) {
+    drgStart = true;
   }
-  return moveY;
+}
+function mouseDragged() {
+  if (drgStart) {
+    slitY = slitY + mouseY - pmouseY;
+  }
+}
+function mouseReleased() {
+  drgStart = false;
 }
