@@ -6,6 +6,7 @@ let imgWidth, imgHeight;
 let color;
 let imgList = [];
 let img;
+let imgCount;
 
 function preload() {
   img0 = loadImage("./image_1.png");
@@ -35,15 +36,15 @@ function setup() {
     }
   );
   createCanvas(windowWidth, windowHeight);
-  buttonList = [];
-  for (let i = 0; i < 7; i++) {
-    let button = createButton(str(i + 1));
-    button.position(width - 50, i * 85 + 10);
-    button.mousePressed(() => {
-      img = imgList[i];
-    });
-    buttonList.push(button);
-  }
+  // buttonList = [];
+  // for (let i = 0; i < 7; i++) {
+  //   let button = createButton(str(i + 1));
+  //   button.position(width - 50, i * 85 + 10);
+  //   button.mousePressed(() => {
+  //     img = imgList[i];
+  //   });
+  //   buttonList.push(button);
+  // }
 
   noStroke();
   imageMode(CENTER);
@@ -66,7 +67,8 @@ function setup() {
 
   color = img1.get(0, 0);
   imgList = [img0, img1, img2, img3, img4, img5, img6];
-  img = imgList[0];
+  imgCount = 0;
+  img = imgList[imgCount % 7];
 }
 
 function draw() {
@@ -76,7 +78,7 @@ function draw() {
   image(img, width / 2, height / 2, imgWidth, imgHeight);
   drawSlit(slitX, slitY, slitAngle);
 
-  //drawButton(n);
+  drawUI();
 }
 
 function drawSlit(x, y, angle) {
@@ -87,6 +89,15 @@ function drawSlit(x, y, angle) {
 function mousePressed() {
   startY = mouseY;
   drgStart = true;
+
+  if ((mouseX - width / 2) ** 2 + (mouseY - 60) ** 2 <= 25 ** 2) {
+    changeScene1();
+  } else if (
+    (mouseX - width / 2) ** 2 + (mouseY - height + 60) ** 2 <=
+    25 ** 2
+  ) {
+    changeScene2();
+  }
 }
 function mouseDragged() {
   if (drgStart) {
@@ -117,6 +128,34 @@ function fillAround() {
   );
 }
 
-function changeScene(n) {
-  img = imgList[n];
+function changeScene1() {
+  imgCount--;
+  if (imgCount < 0) {
+    imgCount = 6;
+  }
+  img = imgList[imgCount];
+}
+function changeScene2() {
+  imgCount++;
+  if (imgCount >= 7) {
+    imgCount = 0;
+  }
+  img = imgList[imgCount];
+}
+
+function drawUI() {
+  push();
+  fill(255, 100);
+  circle(width / 2, 60, 50);
+  triangle(width / 2, 48, width / 2 - 10, 68, width / 2 + 10, 68);
+  circle(width / 2, height - 60, 50);
+  triangle(
+    width / 2,
+    height - 48,
+    width / 2 - 10,
+    height - 68,
+    width / 2 + 10,
+    height - 68
+  );
+  pop();
 }
