@@ -20,7 +20,7 @@ function setup() {
 
 function draw() {
   background(220);
-  text(windowWidth + "," + windowHeight);
+  text(windowWidth + "," + windowHeight, 50, 50);
   if (mouseIsPressed) {
     fill(255);
     ellipse(mouseX, mouseY, 50, 50);
