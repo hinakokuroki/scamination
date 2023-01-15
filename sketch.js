@@ -1,4 +1,5 @@
 let slitY, startY, moveY;
+let drgStart;
 
 function setup() {
   window.addEventListener(
@@ -21,6 +22,7 @@ function setup() {
   slitY = windowHeight - 40;
   startY = 0;
   moveY = 0;
+  drgStart = false;
 }
 
 function draw() {
@@ -29,13 +31,8 @@ function draw() {
   stroke(100);
   text(windowWidth + "," + windowHeight, 50, 50);
   //slitY = slitY + moveY;
-  rect(20, slitY, windowWidth - 40, windowHeight);
-
-  if (mouseIsPressed) {
-    fill(255);
-    ellipse(mouseX, mouseY, 50, 50);
-    text(windowWidth + "," + windowHeight, mouseX, mouseY - 50);
-  }
+  //rect(20, slitY, windowWidth - 40, windowHeight);
+  drawSlit(4, slitY, windowWidth - 8, windowHeight, 36);
 }
 
 function mousePressed() {
@@ -51,4 +48,17 @@ function mouseDragged() {
 }
 function mouseReleased() {
   drgStart = false;
+}
+
+function drawSlit(x, y, w, h, n) {
+  //rect(x, y, w, h);
+  slitSize = 12;
+  slitInterval = 6;
+  n = Math.floor(h / (slitInterval + slitSize)) + 1;
+  //slitInterval = h / (n * 2 - 1);
+  for (let i = 0; i < n; i++) {
+    fill(20, 20, 60);
+    rect(x, y + i * (slitInterval + slitSize), w, slitSize);
+    //console.log(slitInterval);
+  }
 }
