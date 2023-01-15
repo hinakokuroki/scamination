@@ -1,5 +1,12 @@
+let slitX, startX, moveX;
 let slitY, startY, moveY;
 let drgStart;
+
+let imgWidth, imgHeight;
+
+function preload() {
+  img1 = loadImage("./image_1.png");
+}
 
 function setup() {
   window.addEventListener(
@@ -19,46 +26,54 @@ function setup() {
     }
   );
   createCanvas(windowWidth, windowHeight);
-  slitY = windowHeight - 40;
+
+  noStroke();
+  imageMode(CENTER);
+  //imageサイズ調整
+  if (width / height <= img1.width / img1.height) {
+    imgWidth = width - 10;
+    imgHeight = Math.floor((img1.height * imgWidth) / img1.width);
+  } else {
+    imgHeight = height - 10;
+    imgWidth = Math.floor((img1.width * imgHeight) / img1.height);
+  }
+  background(250);
+  //image(img1, width / 2, height / 2, imgWidth, imgHeight);
+  //image(img1, width / 2, height / 2);
+  slitX = width / 2 - 10;
+  slitY = height / 2 - 10;
+  slitAngle = 0;
   startY = 0;
   moveY = 0;
+  startX = 0;
+  moveX = 0;
   drgStart = false;
 }
 
 function draw() {
   let dragCount = 0;
-  background(250);
-  stroke(100);
+  background(255);
+  image(img1, width / 2, height / 2, imgWidth, imgHeight);
   text(windowWidth + "," + windowHeight, 50, 50);
   //slitY = slitY + moveY;
   //rect(20, slitY, windowWidth - 40, windowHeight);
-  drawSlit(4, slitY, windowWidth - 8, windowHeight, 36);
+  drawSlit(slitX, slitY, slitAngle);
 }
 
 function mousePressed() {
   startY = mouseY;
-  if (mouseY >= slitY) {
-    drgStart = true;
-  }
+  drgStart = true;
 }
 function mouseDragged() {
   if (drgStart) {
     slitY = slitY + mouseY - pmouseY;
+    slitX = slitX + mouseX - pmouseX;
   }
 }
 function mouseReleased() {
   drgStart = false;
 }
 
-function drawSlit(x, y, w, h, n) {
-  //rect(x, y, w, h);
-  slitSize = 12;
-  slitInterval = 6;
-  n = Math.floor(h / (slitInterval + slitSize)) + 1;
-  //slitInterval = h / (n * 2 - 1);
-  for (let i = 0; i < n; i++) {
-    fill(20, 20, 60);
-    rect(x, y + i * (slitInterval + slitSize), w, slitSize);
-    //console.log(slitInterval);
-  }
+function drawSlit(x, y, angle) {
+  image(img1, x, y, imgWidth, imgHeight);
 }
