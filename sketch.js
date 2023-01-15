@@ -1,4 +1,20 @@
 function setup() {
+  window.addEventListener(
+    "touchstart",
+    function (e) {
+      e.preventDefault();
+    },
+    { passive: false }
+  );
+  window.addEventListener(
+    "touchmove",
+    function (e) {
+      e.preventDefault();
+    },
+    {
+      passive: false,
+    }
+  );
   createCanvas(windowWidth, windowHeight);
 }
 
