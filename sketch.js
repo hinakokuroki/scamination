@@ -77,12 +77,19 @@ function draw() {
   fillAround();
   image(img, width / 2, height / 2, imgWidth, imgHeight);
   drawSlit(slitX, slitY, slitAngle);
-
   drawUI();
+
+  if (mouseIsPressed) {
+    push();
+    fill(255, 100);
+    noStroke();
+    circle(mouseX, mouseY, 40);
+    pop();
+  }
 }
 
 function drawSlit(x, y, angle) {
-  tint(255, 255, 200, 240);
+  //tint(255, 255, 200, 240);
   image(img, x, y, imgWidth, imgHeight);
 }
 
